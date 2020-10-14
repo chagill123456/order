@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章</title>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
+    <link rel="stylesheet" href="{{ buildStaticUrl('/css/blog/style.css') }}">
+    <link rel="shortcut icon" href="#">
+</head>
+<body>
+  <!--导航-->
+     <!--导航-->
+    <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h2 class="ui teal header item">Nordic Garden</h2>
+                <a href="{{ buildUrl('/blog') }}" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+                <a href="{{ buildUrl('/blog/classify') }}"  class="m-item item m-mobile-hide"><i class="idea icon"></i>合集</a>
+                  {% if current_user %}
+                <a href="{{ buildUrl('/blog/postblog') }}" class="m-item item m-mobile-hide"><i class="edit icon"></i>发布文章</a>
+                <a href="{{ buildUrl('/blog/author') }}?author={{ current_user.nickname }}"  class="m-item item m-mobile-hide"><i class="info icon"></i>我的列表</a>
+                <a href="{{ buildUrl('/blog/personalinformation') }}?author={{ current_user.nickname }}"  class="m-item item m-mobile-hide"><i class="heart icon"></i>个人信息</a>
+                {% endif %}
+            </div>
+        </div>
+
+    </nav>
+
+    <!--中间-->
+    <div class="m-padded-tb-max m-container-small">
+
+        <div class="ui container">
+              {% if info %}
+            <div class="ui top attached segment">
+                <div class="ui horizontal link list">
+                    <div class="item">
+                        <img src="{{ buildStaticUrl(info.headportraitadress) }}" alt="" class="ui avatar image">
+                        <div class="content"><a href="#" class="header">{{ info.name }}</a></div>
+                    </div>
+                    <div class="item">
+                        <i class="calendar icon"></i>{{ info.data }}
+                    </div>
+                    <div class="item">
+                        <i class="eye icon"></i>浏览次数:{{ info.hits }}
+                    </div>
+                     <div class="item">
+                         <a href="{{ buildUrl('/blog/biaoqian') }}?bq={{ info.biaoqian }}" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">{{ info.biaoqian }}</a>
+                     </div>
+                </div>
+            </div>
+            <div class="ui attached segment">
+                <!--pic-->
+
+            </div>
+            <div class="ui attached m-padded-tb-max segment article-wrap">
+                <!--context-->
+
+
+
+
+                <div class="ui action input">
+                    <input type="text" name="zqpsw" value="{{ info.psw }}" style="display:none"></input>
+                 <input type="text" name="articleid" value="{{ info.articleid }}" style="display:none"></input>
+                 <input type="text"  name="password"  placeholder="请输入密码...">
+                  <button class="ui icon button do-verify">
+                   <i class="search icon"></i>
+                  </button>
+</div>
+
+            </div>
+              {% endif %}
+            </div>
+
+
+        </div>
+
+
+    </div>
+      <!--底部-->
+    <footer class="ui inverted vertical segment m-padded-tb-max">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="three wide column">
+                    <div class="ui inverted link list">
+                    </div>
+                </div>
+                <div class="four wide column">
+
+                </div>
+                <div class="four wide column">
+
+                </div>
+                <div class="five wide column">
+
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2020 - 2020  Designed by guagua</p>
+        </div>
+    </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+  <script src="{{ buildStaticUrl('/plugins/layer/layer.js') }}"></script>
+<script src="{{ buildStaticUrl('/js/common.js') }}"></script>
+  <script src="{{ buildStaticUrl('/js/blog/details.js') }}"></script>
+    <script src="{{ buildStaticUrl('/js/blog/verifypsw.js') }}"></script>
+    <script>
+        $('.menu.toggle').click(function () {
+            $('.m-item').toggleClass('m-mobile-hide')
+        }),
+
+
+
+    </script>
+</body>
+</html>

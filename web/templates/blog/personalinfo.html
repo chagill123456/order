@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发文</title>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
+    <link rel="stylesheet" href="{{ buildStaticUrl('/css/blog/style.css') }}">
+    <link rel="shortcut icon" href="#">
+
+
+</head>
+<body>
+  <!--导航-->
+     <!--导航-->
+    <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h2 class="ui teal header item">Nordic Garden</h2>
+                <a href="{{ buildUrl('/blog') }}" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+                <a href="{{ buildUrl('/blog/classify') }}"  class="m-item item m-mobile-hide"><i class="idea icon"></i>合集</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
+            </div>
+        </div>
+
+    </nav>
+
+    <!--中间-->
+    <div class="m-padded-tb-max m-container-small">
+        <div class="ui container blogpost_wrap">
+          <div class="ui attached segment">
+                <div class="ui horizontal link list">
+                      <div class="item">
+                     <label class="col-lg-2 control-label">昵称:</label>
+                      </div>
+                      <div class="item">
+
+                       <input type="text" class="form-control" placeholder="请输入昵称" name="name" value="{{ info.nickname }}" style="width:200px; height=20px; background: transparent"/>
+                          <input type="text" name="id" value="{{ info.uid }}" style="display:none"></input>
+
+                      </div>
+                </div>
+            </div>
+            <div class="ui attached segment">
+                 <div class="ui horizontal link list">
+                <div class="item">
+                <label class="control-label">头像:</label>
+                </div>
+                 <div class="item">
+
+                    <form class="upload_pic_wrap" target="upload_file" enctype="multipart/form-data" method="POST" action="{{ buildUrl('/upload/pic') }}">
+                        <div class="upload_wrap pull-left">
+                            <i class="fa fa-upload fa-2x"></i>
+                            <input type="file" name="pic" accept="image/png, image/jpeg, image/jpg,image/gif">
+                        </div>
+                        {% if info and info.headportraitadress %}
+
+                        <span class="pic-each">
+                            <img src="{{ buildStaticUrl(info.headportraitadress) }}" />
+                            <span class="fa fa-times-circle del del_image" data="{{ info.headportraitadress }}"></span>
+                        </span>
+
+                        {% endif %}
+
+                    </form>
+                 </div>
+                 </div>
+            </div>
+
+              <div class="ui attached segment">
+                <div class="ui horizontal link list">
+                      <div class="item">
+                     <label class="col-lg-2 control-label">个人简介:</label>
+                      </div>
+                      <div class="item">
+                      <textarea  id=""  name="jianjie"  style="height: 50px;width: 300px">{{ info.jianji }}</textarea>
+                      </div>
+                </div>
+            </div>
+
+
+
+              <div class="ui attached segment">
+                <div class="ui horizontal link list">
+                      <div class="item">
+                             <button class="btn btn-w-m btn-outline btn-primary save">修改</button>
+
+                      </div>
+                </div>
+            </div>
+               <div class="hidden hidden_layout_wrap" style="display:none">
+    <input name="domain" value="{{ config.APP.domain }}">
+    <input name="prefix_url" value="{{ config.UPLOAD.prefix_url }}">
+           </div>
+
+        </div>
+         <iframe name="upload_file" class="hide" style="display:none"></iframe>
+
+
+
+    </div>
+
+
+      <!--底部-->
+    <footer class="ui inverted vertical segment m-padded-tb-max">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="three wide column">
+                    <div class="ui inverted link list">
+                    </div>
+                </div>
+                <div class="four wide column">
+
+                </div>
+                <div class="four wide column">
+
+                </div>
+                <div class="five wide column">
+
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2020 - 2020  Designed by guagua</p>
+        </div>
+    </footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+  <script src="{{ buildStaticUrl('/plugins/layer/layer.js') }}"></script>
+<script src="{{ buildStaticUrl('/js/common.js') }}"></script>
+  <script src="{{ buildStaticUrl('/js/blog/personset.js') }}"></script>
+
+
+
+
+<script src="{{ buildStaticUrl( '/plugins/ueditor/ueditor.config.js' ) }}"></script>
+<script src="{{ buildStaticUrl( '/plugins/ueditor/ueditor.all.min.js' ) }}"></script>
+<script src="{{ buildStaticUrl( '/plugins/ueditor/lang/zh-cn/zh-cn.js' ) }}"></script>
+
+<script src="{{ buildStaticUrl( '/plugins/select2/select2.pinyin.js' ) }}"></script>
+<script src="{{ buildStaticUrl( '/plugins/select2/zh-CN.js' ) }}"></script>
+<script src="{{ buildStaticUrl( '/plugins/select2/pinyin.core.js' ) }}"></script>
+
+
+
+
+    <script>
+        $('.menu.toggle').click(function () {
+            $('.m-item').toggleClass('m-mobile-hide')
+        })
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
+    <link rel="stylesheet" href="{{ buildStaticUrl('/css/blog/style.css') }}">
+    <link rel="shortcut icon" href="#">
+
+
+
+
+</head>
+<body>
+    <!--导航-->
+    <nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h2 class="ui teal header item">Nordic Garden</h2>
+                <a href="{{ buildUrl('/blog') }}" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+                <a href="{{ buildUrl('/blog/classify') }}" class="m-item item m-mobile-hide"><i class="idea icon"></i>合集</a>
+                {% if current_user %}
+                <a href="{{ buildUrl('/blog/postblog') }}" class="m-item item m-mobile-hide"><i class="edit icon"></i>发布文章</a>
+                <a href="{{ buildUrl('/blog/author') }}?author={{ current_user.nickname }}"  class="m-item item m-mobile-hide"><i class="info icon"></i>我的列表</a>
+                 <a href="{{ buildUrl('/blog/personalinformation') }}?author={{ current_user.nickname }}"  class="m-item item m-mobile-hide"><i class="heart icon"></i>个人信息</a>
+                {% endif %}
+
+            </div>
+        </div>
+        <a href="{{ buildUrl('/blog/search') }}" class="ui menu toggle black icon button m-top-right m-hide">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+
+    <!--中间-->
+    <div class="m-padded-tb-max">
+        <div class="ui container">
+            <div class="ui stackable grid">
+                <!--左边-->
+                <div class="eleven wide column">
+                    <!--header-->
+                    <div class="ui top segment">
+                        <div class="ui middle aligned two column grid">
+                            <div class="column">
+                                <h3 class="ui teal header">合集</h3>
+                            </div>
+                            <div class="right aligned column">
+                                共 <h3 class="ui orange header m-inline-block m-text-thin">10</h3>篇
+                            </div>
+                        </div>
+                    </div>
+                    <!--博客主题-->
+                    <div class="ui attached segment">
+                   {% if list %}
+                {% for item in list %}
+                         <div class="ui m-padded-tb-max vertical segment revisearticle-wrap">
+                            <div class="ui mobile reversed stackable grid">
+                                <div class="sixteen wide column">
+
+                                    <div class="ui grid">
+                                        <div class="sixteen wide column">
+                                            <div class="ui horizontal link list">
+                                                <div class="item">
+                                                    <img src="{{ buildStaticUrl(item.headportraitadress) }}"alt="" class="ui avatar image">
+                                                    <div class="content"><a href="{{ buildUrl('/blog/author') }}?author={{ item.name }}" class="header">{{ item.name }}</a></div>
+                                                </div>
+                                                <div class="item">
+                                                    <i class="calendar icon"></i>{{ item.data }}
+                                                </div>
+                                                  <div class="item">
+                                                  <a href="{{ buildUrl('/blog/biaoqian') }}?bq={{ item.biaoqian }}" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">{{ item.biaoqian }}</a>
+                                                     </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <h3 class="ui header">{{ item.title }}</h3>
+                                       <p>{{ item.jianji }}</p>
+                                       <div class="right aligned five wide column">
+                                              <div class="ui horizontal link list">
+
+                                           <div class="item">
+                                            <a href="{{ buildUrl('/blog/details') }}?id={{ item.articleid  }}" target="_blank" class="ui teal basic label">阅读原文</a>
+                                           </div>
+                                                    {% if current_user.nickname == item.name  %}
+                                             <div class="item">
+                                                 <button class="ui primary basic button do-modify" name="modify" value="{{ item.articleid }}">>修改</button>
+                                           </div>
+                                                  <div class="item">
+                                                 <button class="ui primary basic button do-delete" name="delete"  value="{{ item.articleid }}">>删除</button>
+                                           </div>
+                                                             {% endif %}
+                                            </div>
+                                        </div>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+
+                    {% endfor %}
+                     {% endif %}
+
+                    </div>
+                    <!--博客底部-->
+                    <div class="ui bottom attached segment">
+                        <div class="ui middle aligned two column grid">
+                            <div class="column">
+                                <a href="{{ buildUrl('/blog/info') }}?p={{ page-1  }}" class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a href="{{ buildUrl('/blog/info') }}?p={{ page+1  }}" class="ui mini teal basic button">下一页</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--右边-->
+                <div class="five wide column">
+
+
+                    <!--最新推荐-->
+                    <div class="ui segment">
+                        <div class="ui secondary segment">
+                            <i class="bookmark icon"></i>最新推荐
+                        </div>
+                         {% if tuijianlist %}
+                               {% for item in tuijianlist %}
+                        <div class="ui segment">
+                            <a href="{{ buildUrl('/blog/details') }}?id={{ item.articleid  }}" target="_blank" class="m-black m-text-thin">{{ item.title }}</a>
+                        </div>
+                         {% endfor %}
+                         {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--底部-->
+    <footer class="ui inverted vertical segment m-padded-tb-max">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="three wide column">
+                    <div class="ui inverted link list">
+                        <div class="item">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="four wide column">
+
+                </div>
+                <div class="four wide column">
+
+                </div>
+                <div class="five wide column">
+
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2020 - 2020  Designed by guagua</p>
+        </div>
+    </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+      <script src="{{ buildStaticUrl('/plugins/layer/layer.js') }}"></script>
+    <script src="{{ buildStaticUrl('/js/common.js') }}"></script>
+  <script src="{{ buildStaticUrl('/js/blog/revisearticle.js') }}"></script>
+\
+
+
+    <script>
+        $('.menu.toggle').click(function () {
+            $('.m-item').toggleClass('m-mobile-hide')
+        })
+
+        // document.onmousedown = function(){
+        //     if(event.button == 2){
+        //         alert("当前页面不能使用右键！");
+        //         return false;
+        //     }
+        // }
+    </script>
+
+
+</body>
+</html>
